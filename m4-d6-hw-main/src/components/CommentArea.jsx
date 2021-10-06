@@ -14,11 +14,10 @@ const CommentArea = ({ asin }) => {
 
         const getComments = async () => {
 
-            this.setState({
-                isLoading: true
-            })
+            setIsLoading(true)
+
             try {
-                let response = await fetch('https://striveschool-api.herokuapp.com/api/comments/' + this.props.asin, {
+                let response = await fetch('https://striveschool-api.herokuapp.com/api/comments/' + asin, {
                     headers: {
                         'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTRiMjFmMTRiYjUzZDAwMTViMTllZDciLCJpYXQiOjE2MzM1MDIzNTIsImV4cCI6MTYzNDcxMTk1Mn0.Q122L_go7ccEBUNjAxhnbaBOwUGsO5DhEmvxHEP6obc'
                     }
@@ -26,14 +25,19 @@ const CommentArea = ({ asin }) => {
                 console.log(response)
                 if (response.ok) {
                     let comments = await response.json()
-                    this.setState({ comments: comments, isLoading: false, isError: false })
+                    setComments(comments)
+                    setIsLoading(false)
+                    setIsError(false)
+
                 } else {
                     console.log('error')
-                    this.setState({ isLoading: false, isError: true })
+                    setIsLoading(false)
+                    setIsError(true)
                 }
             } catch (error) {
                 console.log(error)
-                this.setState({ isLoading: false, isError: true })
+                setIsLoading(false)
+                setIsError(true)
             }
         }
         getComments()
@@ -51,16 +55,14 @@ const CommentArea = ({ asin }) => {
         }
     } */
 
-    render() {
         return (
             <div>
-                {this.state.isLoading && <Loading />}
-                {this.state.isError && <Error />}
-                <AddComment asin={this.props.asin} />
-                <CommentList commentsToShow={this.state.comments} />
+                {isLoading && <Loading />}
+                {isError && <Error />}
+                <AddComment asin={asin} />
+                <CommentList commentsToShow={comments} />
             </div>
         )
     }
-}
 
 export default CommentArea
