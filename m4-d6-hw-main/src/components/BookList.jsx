@@ -5,7 +5,7 @@ import CommentArea from './CommentArea'
 
 const BookList = ({books}) => {
 
-    const [searchQuery, setSearchQuery] = useState('')
+    const [searchQuery, setSearchQuery] = useState ('')
     const [selectedBook, setSelectedBook] = useState (null)
 
     /* state = {
@@ -25,7 +25,7 @@ const BookList = ({books}) => {
                                         type="text"
                                         placeholder="Search here"
                                         value={searchQuery}
-                                        onChange={e => setSearchQuery(e.target.value )}
+                                        onChange={e => setSearchQuery(e.target.value)}
                                     />
                                 </Form.Group>
                             </Col>

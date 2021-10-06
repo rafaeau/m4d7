@@ -1,19 +1,19 @@
-import { Component } from 'react'
+import { useEffect, useState } from 'react'
 import CommentList from './CommentList'
 import AddComment from './AddComment'
 import Loading from './Loading'
 import Error from './Error'
 
-class CommentArea extends Component {
+const CommentArea = ({ asin }) => {
 
-    state = {
-        comments: [], // comments will go here
-        isLoading: false,
-        isError: false
-    }
+    const [comments, setComments] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
+    const [isError, setIsError] = useState(false)
 
-    componentDidUpdate = async (prevProps) => {
-        if (prevProps.asin !== this.props.asin) {
+    useEffect(() => {
+
+        const getComments = async () => {
+
             this.setState({
                 isLoading: true
             })
@@ -36,7 +36,20 @@ class CommentArea extends Component {
                 this.setState({ isLoading: false, isError: true })
             }
         }
-    }
+        getComments()
+    }, [asin])
+
+    /* state = {
+        comments: [], // comments will go here
+        isLoading: false,
+        isError: false
+    } */
+
+    /* componentDidUpdate = async (prevProps) => {
+        if (prevProps.asin !== this.props.asin) {
+            
+        }
+    } */
 
     render() {
         return (
